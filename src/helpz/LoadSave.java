@@ -21,4 +21,9 @@ public class LoadSave {
 
         return img;
     }
+
+    // txt file
+    public static void CreateFile() {
+        
+    }
 }

@@ -65,4 +65,10 @@ public class Settings extends GameScene implements SceneMethods {
 
 	}
 
+	@Override
+	public void mouseDragged(int x, int y) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+	}
+
 }
