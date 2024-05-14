@@ -4,10 +4,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import static main.GameStates.*;
+
+import main.Game;
 import main.GameStates;
 
 public class KeyboardListener implements KeyListener{
+    private Game game;
 
+    public KeyboardListener(Game game) {
+        this.game = game;
+    }
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
@@ -15,15 +21,8 @@ public class KeyboardListener implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            GameStates.gameState = MENU;
-
-        } else if (e.getKeyCode() == KeyEvent.VK_S) {
-            GameStates.gameState = PLAYING;
-
-        } else if (e.getKeyCode() == KeyEvent.VK_D) {
-            GameStates.gameState = SETTINGS;
-        }
+        if (GameStates.gameState == EDIT)
+            game.getEditor().keyPressed(e);
     }
 
     @Override

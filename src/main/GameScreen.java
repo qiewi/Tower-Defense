@@ -23,7 +23,7 @@ public class GameScreen extends JPanel{
 
     public void initInputs() {
         myMouseListener = new MyMouseListener(game);
-        keyboardListener = new KeyboardListener();
+        keyboardListener = new KeyboardListener(game);
 
         addMouseListener(myMouseListener);
         addMouseMotionListener(myMouseListener);
@@ -48,9 +48,6 @@ public class GameScreen extends JPanel{
 
         // BufferedImage i = img.getSubimage(9*32, 32, 32, 32);
         // g.drawImage(i, 0, 0, null);
-        
-        
-        
     }
 
 }

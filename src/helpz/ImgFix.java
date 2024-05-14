@@ -9,17 +9,17 @@ public class ImgFix {
 
     public static BufferedImage getRotImg(BufferedImage img, int rotAngle) {
 
-        int w = img.getWidth();
-        int h = img.getHeight();
+		int w = img.getWidth();
+		int h = img.getHeight();
 
-        BufferedImage newImg = new BufferedImage(w, h, img.getType());  
-        Graphics2D g2d = newImg.createGraphics();
+		BufferedImage newImg = new BufferedImage(w, h, img.getType());
+		Graphics2D g2d = newImg.createGraphics();
 
-        g2d.rotate(Math.toRadians(rotAngle), w / 2, h / 2);
-        g2d.drawImage(img, w, h, null);
-        g2d.dispose();
+		g2d.rotate(Math.toRadians(rotAngle), w / 2, h / 2);
+		g2d.drawImage(img, 0, 0, null);
+		g2d.dispose();
 
-        return newImg;
+		return newImg;
     }
 
     // Img Layer Build
@@ -46,8 +46,8 @@ public class ImgFix {
         int w = imgs[0].getWidth();
         int h = imgs[0].getHeight();
 
-        BufferedImage newImg = new BufferedImage(w, h, imgs[0].getType());  
-        Graphics2D g2d = newImg.createGraphics();
+        BufferedImage newImg = new BufferedImage(w, h, imgs[0].getType());
+		Graphics2D g2d = newImg.createGraphics();
 
         for (int i = 0; i < imgs.length; i++) {
             if (i == rotAtIndex) {
