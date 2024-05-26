@@ -37,15 +37,15 @@ public class Settings extends GameScene implements SceneMethods {
 	@Override
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y))
-			setGameState(MENU);
+			SetGameState(MENU);
 
 	}
 
 	@Override
 	public void mouseMoved(int x, int y) {
-		bMenu.setMouseHover(false);
+		bMenu.setMouseOver(false);
 		if (bMenu.getBounds().contains(x, y))
-			bMenu.setMouseHover(true);
+			bMenu.setMouseOver(true);
 
 	}
 
@@ -68,7 +68,7 @@ public class Settings extends GameScene implements SceneMethods {
 	@Override
 	public void mouseDragged(int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+		
 	}
 
 }

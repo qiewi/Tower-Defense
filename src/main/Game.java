@@ -3,148 +3,163 @@ package main;
 import javax.swing.JFrame;
 
 import helpz.LoadSave;
+import inputs.KeyboardListener;
+import inputs.MyMouseListener;
 import managers.TileManager;
 import scenes.Editing;
 import scenes.Menu;
 import scenes.Playing;
 import scenes.Settings;
 
-public class Game extends JFrame implements Runnable{
-    private GameScreen gameScreen;
-    private Thread gameThread;
+public class Game extends JFrame implements Runnable {
 
-    private final double FPS_SET = 120.0;
-    private final double UPS_SET = 60.0;
+	private GameScreen gameScreen;
+	private Thread gameThread;
 
-    // Classes
-    private Render render;
-    private Menu menu;
-    private Playing playing;
-    private Settings settings;
-    private Editing editing;
+	private final double FPS_SET = 120.0;
+	private final double UPS_SET = 60.0;
 
-    // Tile Manager
-    private TileManager tileManager;
+	// Classes
+	private Render render;
+	private Menu menu;
+	private Playing playing;
+	private Settings settings;
+	private Editing editing;
 
-    public Game() {
+	private TileManager tileManager;
 
-        initClasses();
-        createDefaultLevel();
+	public Game() {
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+		initClasses();
+		createDefaultLevel();
 
-        setResizable(false);
-        add(gameScreen);
-        pack();
-        
-        setVisible(true);
-    }
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		add(gameScreen);
+		pack();
+		setVisible(true);
 
-    private void createDefaultLevel() {
-		int[] arr = new int[400];
-		for (int i = 0; i < 400; i++) {
-			arr[i] = 0;
-		}
-
-		LoadSave.CreateLevel("new_level", arr);
 	}
 
-    private void initClasses() {
-        tileManager = new TileManager();
-        render = new Render(this);
-        gameScreen = new GameScreen(this);
-        menu = new Menu(this);
-        playing = new Playing(this);
-        settings = new Settings(this);
-        editing = new Editing(this);
-    }
+	private void createDefaultLevel() {
+		int[] arr = new int[400];
+		for (int i = 0; i < arr.length; i++)
+			arr[i] = 0;
 
+		LoadSave.CreateLevel("new_level", arr);
 
-    private void start() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
+	}
 
-    private void updateGame() {
-        // System.out.println("Game Updated!");
-    }
-    public static void main(String[] args) {
-        
-        Game game = new Game();
-        game.gameScreen.initInputs();
-        game.start();
-    }
+	private void initClasses() {
+		tileManager = new TileManager();
+		render = new Render(this);
+		gameScreen = new GameScreen(this);
+		menu = new Menu(this);
+		playing = new Playing(this);
+		settings = new Settings(this);
+		editing = new Editing(this);
 
-    @Override
-    public void run() {
+	}
 
-        double timePerframe = 1000000000.0 / FPS_SET;
-        double timePerUpdate = 1000000000.0 / UPS_SET;
+	private void start() {
+		gameThread = new Thread(this) {
+		};
 
-        long lastframe = System.nanoTime();
-        long lastUpdate = System.nanoTime();
+		gameThread.start();
+	}
 
-        long lastTimeCheck = System.currentTimeMillis();
+	private void updateGame() {
+		switch (GameStates.gameState) {
+		case EDIT:
+			editing.update();
+			break;
+		case MENU:
+			break;
+		case PLAYING:
+			playing.update();
+			break;
+		case SETTINGS:
+			break;
+		default:
+			break;
+		}
+	}
 
-        int frames = 0;
-        int updates = 0;
+	public static void main(String[] args) {
 
-        long now;
-        
-        
-        while (true) {
-            
-            now = System.nanoTime();
-            // Render
-            if (now - lastframe >= timePerframe) {
-                repaint();
-                lastframe = now;
-                frames++;
-            } else {
-                // do nothing
-            }
+		Game game = new Game();
+		game.gameScreen.initInputs();
+		game.start();
 
-            // Update
-            if (now - lastUpdate >= timePerUpdate) {
-                updateGame();
-                lastUpdate = now;
-                updates++;
-            } else {
-                // do nothing
-            }
+	}
 
-            if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
-                frames = 0;
-                updates = 0;
-                lastTimeCheck = System.currentTimeMillis();
-            }
-        }
-    }
+	@Override
+	public void run() {
 
-    // Getters and Setters
-    public Render getRender() {
-        return render;
-    }
+		double timePerFrame = 1000000000.0 / FPS_SET;
+		double timePerUpdate = 1000000000.0 / UPS_SET;
 
-    public Menu getMenu() {
-        return menu;
-    }
+		long lastFrame = System.nanoTime();
+		long lastUpdate = System.nanoTime();
+		long lastTimeCheck = System.currentTimeMillis();
 
-    public Playing getPlaying() {
-        return playing;
-    }
+		int frames = 0;
+		int updates = 0;
 
-    public Settings getSettings() {
-        return settings;
-    }
+		long now;
 
-    public Editing getEditor() {
-        return editing;
-    }
+		while (true) {
+			now = System.nanoTime();
 
-    public TileManager getTileManager() {
-        return tileManager;
-    }
+			// Render
+			if (now - lastFrame >= timePerFrame) {
+				repaint();
+				lastFrame = now;
+				frames++;
+			}
+
+			// Update
+			if (now - lastUpdate >= timePerUpdate) {
+				updateGame();
+				lastUpdate = now;
+				updates++;
+			}
+
+			if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
+				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				frames = 0;
+				updates = 0;
+				lastTimeCheck = System.currentTimeMillis();
+			}
+
+		}
+
+	}
+
+	// Getters and setters
+	public Render getRender() {
+		return render;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public Playing getPlaying() {
+		return playing;
+	}
+
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public Editing getEditor() {
+		return editing;
+	}
+
+	public TileManager getTileManager() {
+		return tileManager;
+	}
+
 }

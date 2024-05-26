@@ -1,42 +1,42 @@
 package main;
 
-import java.awt.Graphics;;
+import java.awt.Graphics;
 
 public class Render {
-    private Game game;
 
+	private Game game;
 
-    public Render(Game game) {
-       this.game = game;   
-    }
+	public Render(Game game) {
+		this.game = game;
 
-    public void render(Graphics g) {
-        switch (GameStates.gameState) {
+	}
 
-            case MENU:    
+	public void render(Graphics g) {
 
-                game.getMenu().render(g);          
-                break;
-        
-            case PLAYING:
+		switch (GameStates.gameState) {
 
-                game.getPlaying().render(g);
-                break;
+		case MENU:
+			game.getMenu().render(g);
 
-            case SETTINGS:
+			break;
+		case PLAYING:
 
-                game.getSettings().render(g);
-                break;
+			game.getPlaying().render(g);
 
-            case EDIT:
+			break;
+		case SETTINGS:
 
-                game.getEditor().render(g);
-                break;
+			game.getSettings().render(g);
 
-            default:
-                break;
-        }
-    }
+			break;
+		case EDIT:
+			game.getEditor().render(g);
+			break;
+		default:
+			break;
 
-    
+		}
+
+	}
+
 }
