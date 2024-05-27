@@ -3,8 +3,6 @@ package main;
 import javax.swing.JFrame;
 
 import helpz.LoadSave;
-import inputs.KeyboardListener;
-import inputs.MyMouseListener;
 import managers.TileManager;
 import scenes.Editing;
 import scenes.Menu;
