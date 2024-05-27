@@ -108,4 +108,8 @@ public class Menu extends GameScene implements SceneMethods {
 
 	}
 
+	public Playing getPlaying() {
+		return (Playing) game.getGameState(PLAYING);
+	}
+
 }
