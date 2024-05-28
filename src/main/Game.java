@@ -92,6 +92,8 @@ public class Game extends JFrame implements Runnable {
 
 	}
 
+	// to update games (threading)
+
 	@Override
 	public void run() {
 
